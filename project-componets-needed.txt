@@ -1,0 +1,16 @@
+
+1. npm i next-themes (dark mode, white mode korar jonno)
+2. npx shadcn@latest add dropdown-menu (shadcn a drop down list add korar jonno)
+3. npm i lucid-react ( icon add korar jonno )
+4. npx shadcn@latest init ( shadcn installation er jonno)
+5. npx shadcn@latest add button ( shadcn button add korar jonno)
+6. npx shadcn@latest add sheet (responsive side panel popup korbe)
+7.
+8.
+9.
+10.
+11.
+12.
+13.
+14.
+15.
