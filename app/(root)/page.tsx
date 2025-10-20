@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import ProductList from "@/components/shared/product/product-list"
+import sampleData from "@/db/sample-data"
 
 
 export const metadata = {
@@ -7,11 +7,10 @@ export const metadata = {
 }
 
 
-
 const Homepage = () => {
- 
+
   return (
-    <Button>Hello World</Button>
+    <ProductList data={sampleData.products} title="Newest Arrivals" limit={4} />
   )
 }
 
