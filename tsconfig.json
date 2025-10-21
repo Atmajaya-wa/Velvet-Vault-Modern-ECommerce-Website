@@ -22,7 +22,7 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@assets/*": ["./assets/*"]
+      "@assets/*": ["./assets/*"] //new alias for assets
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

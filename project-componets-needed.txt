@@ -5,12 +5,22 @@
 4. npx shadcn@latest init ( shadcn installation er jonno)
 5. npx shadcn@latest add button ( shadcn button add korar jonno)
 6. npx shadcn@latest add sheet (responsive side panel popup korbe)
-7.
-8.
-9.
-10.
-11.
-12.
-13.
+7. npx shadcn@latest add card (shadcn card add korar jonno) 
+8. npm i -D prisma @prisma/client (prisma and prisma client installation er jonno)
+9. npx prisma init (Prisma file initiate hobe)
+10. npx prisma generate ( Generate prisma )
+11. npx prisma migrate dev --name init ( Migrate prisma)
+12. npx prisma studio ( Prisma Studio )
+13. npx tsx ./db/seed (data base a tsx install korar jonno)
 14.
 15.
+16.
+17.
+18.
+19.
+20.
+21.
+22.
+23.
+24.
+25.

@@ -1,3 +1,4 @@
+import ProductCard from "./product-card";
 
 
 
@@ -13,7 +14,7 @@ const ProductList = ({data, title, limit}:{data: any; title?: string; limit?: nu
                 {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     limitedData.map((product:any) => (
-                        <div key={product.slug}>{product.name}</div> 
+                        <ProductCard key={product.slug} product={product} />
                     ))
                 }
              </div>
@@ -25,4 +26,4 @@ const ProductList = ({data, title, limit}:{data: any; title?: string; limit?: nu
      );
 }
  
-export default ProductList;
+export default ProductList; 
