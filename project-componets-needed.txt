@@ -12,10 +12,10 @@
 11. npx prisma migrate dev --name init ( Migrate prisma)
 12. npx prisma studio ( Prisma Studio )
 13. npx tsx ./db/seed (data base a tsx install korar jonno)
-14.
-15.
-16.
-17.
+14. npm i zod 
+15. npm i @neondatabase/serverless @prisma/adapter-neon ws
+16. npm i -D @types/ws bufferutil
+17. npm shadcn@latest add badge ()
 18.
 19.
 20.

@@ -1,9 +1,10 @@
+import { Product } from "@/types";
 import ProductCard from "./product-card";
 
 
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ProductList = ({data, title, limit}:{data: any; title?: string; limit?: number}) => {
+
+const ProductList = ({data, title, limit}:{data: Product[]; title?: string; limit?: number}) => {
     const limitedData = limit ? data.slice(0, limit) : data;
     return ( 
         <div className="my-2">
@@ -12,8 +13,8 @@ const ProductList = ({data, title, limit}:{data: any; title?: string; limit?: nu
 
              <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    limitedData.map((product:any) => (
+                    
+                    limitedData.map((product:Product) => (
                         <ProductCard key={product.slug} product={product} />
                     ))
                 }
