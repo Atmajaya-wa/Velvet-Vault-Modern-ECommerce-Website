@@ -19,12 +19,16 @@
 // export default Homepage 
 
 // app/(root)/page.tsx
-import ProductList from "@/components/shared/product/product-list"
-import { gateLatestProducts } from "@/lib/actions/product.actions"
+import type { Metadata } from "next";
+import ProductList from "@/components/shared/product/product-list";
+import { gateLatestProducts } from "@/lib/actions/product.actions";
 
-export const metadata = { title: "Home" }
+// ✅ metadata-কে টাইপ দিন
+export const metadata: Metadata = {
+  title: "Home",
+};
 
 export default async function Homepage() {
-  const latestProducts = await gateLatestProducts()
-  return <ProductList data={latestProducts} title="Newest Arrivals" limit={4} />
+  const latestProducts = await gateLatestProducts();
+  return <ProductList data={latestProducts} title="Newest Arrivals" limit={4} />;
 }

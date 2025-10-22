@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { getProductBySlug } from "@/lib/actions/product.actions";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import ProductImages from "@/components/shared/product/product-images";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -24,6 +25,7 @@ const ProductDetailsPage = async (props: PageProps) => {
           {/* Images Column */}
           <div className="col-span-2">
             {/* TODO: render product.images */}
+            <ProductImages images={product.images} />
           </div>
 
           {/* Details Column */}

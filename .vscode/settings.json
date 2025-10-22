@@ -1,5 +1,6 @@
 {
   "css.validate": false,
+  "typescript.tsdk": "node_modules\\typescript\\lib",
   // "scss.validate": false,
   // "less.validate": false
 }
