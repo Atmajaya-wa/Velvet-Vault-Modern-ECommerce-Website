@@ -49,7 +49,6 @@
 // }
  
 // export default SignInPage;
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { APP_NAME } from "@/lib/constants";
 import { Metadata } from "next";
@@ -63,18 +62,20 @@ export const metadata: Metadata = {
   title: "Sign In - Velvet Vault",
 };
 
-type SignInPageProps = {
-  searchParams?: {
-    callbackUrl?: string;
-  };
+type SearchParams = {
+  callbackUrl?: string;
 };
 
-const SignInPage = async ({ searchParams }: SignInPageProps) => {
+export default async function SignInPage({
+  searchParams,
+}: {
+  searchParams: Promise<SearchParams>;
+}) {
+  // ✅ await searchParams (fixes the Next.js error)
+  const sp = await searchParams;
+  const callbackUrl = sp?.callbackUrl ?? "/";
+
   const session = await auth();
-
-  // searchParams is a plain object – no await
-  const callbackUrl = searchParams?.callbackUrl ?? "/";
-
   if (session) {
     redirect(callbackUrl);
   }
@@ -103,6 +104,4 @@ const SignInPage = async ({ searchParams }: SignInPageProps) => {
       </Card>
     </div>
   );
-};
-
-export default SignInPage;
+}

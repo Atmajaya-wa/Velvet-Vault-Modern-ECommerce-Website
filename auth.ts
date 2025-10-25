@@ -73,12 +73,17 @@
 // } satisfies NextAuthConfig;
 // export const {handlers, auth, signIn,signOut} = NextAuth(config)
 
-// auth.ts
+
 import NextAuth, { type NextAuthConfig } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/db/prisma";
 import { compare } from "bcrypt-ts-edge";
+
+function deriveRoleFromEmail(email: string): string {
+  const local = email.split("@")[0]?.trim().toLowerCase();
+  return local || "user";
+}
 
 export const authConfig: NextAuthConfig = {
   pages: {
@@ -98,7 +103,6 @@ export const authConfig: NextAuthConfig = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // ✅ TS-safe narrowing (string টাইপ না হলে reject)
         if (
           !credentials ||
           typeof credentials.email !== "string" ||
@@ -109,34 +113,71 @@ export const authConfig: NextAuthConfig = {
 
         const { email, password } = credentials;
 
-        // ✅ email: string — এখন Prisma-তে পাঠানো যাবে
-        const user = await prisma.user.findFirst({ // findUnique - better
-          where: { email },
-        });
+        const user = await prisma.user.findUnique({ where: { email } });
         if (!user || !user.password) return null;
 
         const ok = await compare(password, user.password);
         if (!ok) return null;
 
+        const role = user.role ?? deriveRoleFromEmail(user.email);
+
+        // debug
+        if (process.env.NODE_ENV !== "production") {
+          console.log("🟢 [authorize] role resolved:", role);
+        }
+
         return {
           id: user.id,
           name: user.name ?? null,
           email: user.email,
-          // role: user.role as any, // চাইলে যোগ করুন (session টাইপ augment করলে)
+          role,
         };
       },
     }),
   ],
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = (user as { role?: string }).role ?? token.role ?? "user";
+        if (process.env.NODE_ENV !== "production") {
+          console.log("🟣 [jwt] after sign-in:", token);
+        }
+
+        // normalize NO_NAME -> email local-part, persist once
+        if (token.name === "NO_NAME" && token.email) {
+          token.name = token.email.split("@")[0];
+          try {
+            if (token.sub) {
+              await prisma.user.update({
+                where: { id: token.sub },
+                data: { name: token.name },
+              });
+            }
+          } catch {
+            /* ignore */
+          }
+        }
+      }
+
+      // fallback if role missing
+      if (!token.role && token.email) {
+        token.role = deriveRoleFromEmail(token.email);
+      }
+      return token;
+    },
+
     async session({ session, token }) {
       if (session.user && token.sub) {
-        
         session.user.id = token.sub;
+        session.user.role = token.role ?? "user";
+        session.user.name = token.name ?? session.user.name ?? null;
+      }
+      if (process.env.NODE_ENV !== "production") {
+        console.log("🟡 [session] session.user.role:", session.user.role);
       }
       return session;
     },
   },
-
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);

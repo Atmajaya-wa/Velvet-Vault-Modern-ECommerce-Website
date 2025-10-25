@@ -27,7 +27,7 @@ const sampleData = {
       images: [
         '/images/sample-products/p1-1.jpg',
         '/images/sample-products/p1-2.jpg',
-      ],
+      ], 
       price: 59.99,
       brand: 'Polo',  
       rating: 4.5,
