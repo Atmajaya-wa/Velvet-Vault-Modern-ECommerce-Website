@@ -1,7 +1,6 @@
 // import {z} from 'zod';
 // import { formatNumberWithDecimal } from './utils';
 
-
 // // Schema for inserting a new product
 
 // const currency=z
@@ -23,41 +22,67 @@
 // });
 
 // lib/validators.ts
-import { z } from 'zod'
+import { z } from "zod";
 
-export const insertProductSchema = z.object({
-  name: z.string().min(3, 'Name must be at least 3 characters long'),
-  slug: z.string().min(3, 'Slug must be at least 3 characters long'),
-  category: z.string().min(3, 'Category must be at least 3 characters long'),
-  brand: z.string().min(3, 'Brand must be at least 3 characters long'),
-  description: z.string().min(3, 'Description must be at least 3 characters long'),
-  stock: z.coerce.number(),
-  images: z.array(z.string()).min(1, 'At least 1 image is required'),
-  isFeatured: z.boolean(),
-  banner: z.string().nullable(),
-  price: z.coerce.number().nonnegative(),  // ✅ এখন number
-})
+/** Shared */
+const email = z.string().email("Enter a valid email address");
+const password = z
+  .string()
+  .min(6, "Password must be at least 6 characters long");
 
-// Shcema for signing users in
+/** Auth: Sign in */
+export const signInFormSchema = z.object({
+  email,
+  password,
+});
 
-export const signInFormSchema=z.object({
-    email: z.string().email('Invalid email address'),
-    password: z.string().min(6,'Password must be at least 6 characters long'),
-})
-
-
-// Shcema for signing Up users in
-
+/** Auth: Sign up */
 export const signUpFormSchema = z
   .object({
-    name: z.string().min(3, "Name must be at least 3 characters long"),
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters long"),
-    confirmPassword: z
-      .string()
-      .min(6, "Confirm Password must be at least 6 characters long"),
+    name: z.string().min(2, "Name must be at least 2 characters long"),
+    email,
+    password,
+    confirmPassword: z.string(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"], // error shows under confirmPassword
+  .refine((vals) => vals.password === vals.confirmPassword, {
+    message: "Passwords must match",
+    path: ["confirmPassword"],
   });
+
+/** Money helper */
+const money = z.coerce.number().nonnegative("Price must be a non-negative number");
+
+/** Product */
+export const insertProductSchema = z.object({
+  name: z.string().min(3, "Name must be at least 3 characters long"),
+  slug: z.string().min(3, "Slug must be at least 3 characters long"),
+  category: z.string().min(3, "Category must be at least 3 characters long"),
+  brand: z.string().min(3, "Brand must be at least 3 characters long"),
+  description: z.string().min(3, "Description must be at least 3 characters long"),
+  stock: z.coerce.number(),
+  images: z.array(z.string()).min(1, "At least 1 image is required"),
+  isFeatured: z.boolean(),
+  banner: z.string().nullable(),
+  price: money,
+});
+
+/** Cart item */
+export const cartItemSchema = z.object({
+  productId: z.string().min(1, "Product ID is required"),
+  name: z.string().min(1, "Name must be given"),
+  slug: z.string().min(1, "Slug must be given"),
+  qty: z.number().int().nonnegative("Quantity must be a positive number"),
+  image: z.string().min(1, "Image is required"),
+  price: money,
+});
+
+/** Cart */
+export const insertCartSchema = z.object({
+  items: z.array(cartItemSchema),
+  itemsPrice: money,
+  shippingPrice: money,
+  totalPrice: money,
+  taxPrice: money,
+  sessionCartId: z.string().min(1, "Session Cart ID is required"),
+  userId: z.string().optional().nullable(),
+});

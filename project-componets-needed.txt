@@ -21,7 +21,7 @@
 20. npm i @auth/prisma-adapter
 21. openssl rand -base64 32
 22. npx shadcn@latest add label input
-23.
+23. npx shadcn@latest add toast
 24.
 25.
 26.

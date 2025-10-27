@@ -2,7 +2,8 @@
 'use server';
 
 import { signIn, signOut } from "@/auth";
-import { signInFormSchema, signUpFormSchema } from "../validators";
+// import { signInFormSchema} from "../validators";
+import { signInFormSchema, signUpFormSchema } from "@/lib/validators";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "@/db/prisma";
