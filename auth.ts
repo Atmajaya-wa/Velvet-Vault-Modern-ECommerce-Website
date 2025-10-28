@@ -79,6 +79,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/db/prisma";
 import { compare } from "bcrypt-ts-edge";
+// import {cookies} from 'next/headers';
+import { NextResponse } from "next/server";
 
 function deriveRoleFromEmail(email: string): string {
   const local = email.split("@")[0]?.trim().toLowerCase();
@@ -164,6 +166,27 @@ export const authConfig: NextAuthConfig = {
         token.role = deriveRoleFromEmail(token.email);
       }
       return token;
+
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    authorized({ request, auth }:any) {
+      // check for session cart cookie
+      if (!request.cookies.get('sessionCartId')) {
+        // Generate a new cart ID and set it as a cookie
+        const sessionCartId = crypto.randomUUID();
+        const newRequestHeaders = new Headers(request.headers);
+        const response = NextResponse.next({
+          request:{
+            headers: newRequestHeaders
+          }
+        });
+        response.cookies.set('sessionCartId', sessionCartId, {
+          httpOnly: true,
+        });
+        return response;
+      } else {
+        return true;
+      }
     },
 
     async session({ session, token }) {
