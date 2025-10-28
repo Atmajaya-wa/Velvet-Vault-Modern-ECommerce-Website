@@ -1,21 +1,23 @@
 // lib/actions/user.actions.ts
-'use server';
+"use server";
 
-import { signIn, signOut } from "@/auth";
-// import { signInFormSchema} from "../validators";
-import { signInFormSchema, signUpFormSchema } from "@/lib/validators";
+import { auth, signIn, signOut } from "@/auth";
+import { shippingAddressSchema, signInFormSchema, signUpFormSchema } from "@/lib/validators";
 import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import { prisma } from "@/db/prisma";
 import { formatError } from "@/lib/utils";
+import { ShippingAddress } from "@/types";
+import { Prisma } from "@prisma/client";
 
+/** Sign in */
 export async function signInWithCredentials(prevState: unknown, formData: FormData) {
   try {
     const user = signInFormSchema.parse({
       email: formData.get("email"),
       password: formData.get("password"),
     });
-    await signIn("credentials", user); // plain password is correct here
+    await signIn("credentials", user);
     return { success: true, message: "Sign in successful" };
   } catch (error) {
     if (isRedirectError(error)) throw error;
@@ -23,10 +25,12 @@ export async function signInWithCredentials(prevState: unknown, formData: FormDa
   }
 }
 
+/** Sign out */
 export async function signOutUser() {
   await signOut();
 }
 
+/** Sign up */
 export async function signUpUser(prevState: unknown, formData: FormData) {
   try {
     const user = signUpFormSchema.parse({
@@ -46,18 +50,54 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       },
     });
 
-    // IMPORTANT: pass the PLAIN password for Credentials sign-in
+    // IMPORTANT: use plain password for credentials sign-in
     await signIn("credentials", {
       email: user.email,
       password: user.password,
-      // optionally: redirectTo: formData.get("callbackUrl") ?? "/",
     });
 
     return { success: true, message: "Sign up successful" };
   } catch (error) {
     if (isRedirectError(error)) throw error;
+    return { success: false, message: formatError(error) };
+  }
+}
 
-    // formatError is now sync; no Promise leaks
+/** Get user by ID */
+export async function getUserById(userId: string) {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+  });
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return user;
+}
+
+/** Update user shipping address (stores ONE JSON object in `addresses`) */
+export async function updateUserAddress(data: ShippingAddress) {
+  try {
+    const session = await auth();
+    const currentUser = await prisma.user.findUnique({
+      where: { id: session?.user?.id },
+    });
+    if (!currentUser) {
+      throw new Error("User not found");
+    }
+
+    const address = shippingAddressSchema.parse(data);
+
+    // 👉 NOTE: Prisma JSON ফিল্ডে লিখতে InputJsonValue কাস্ট করুন
+    await prisma.user.update({
+      where: { id: currentUser.id },
+      data: {
+        // আমরা single address রাখছি। চাইলে এখানে arrayও রাখতে পারেন।
+        addresses: address as unknown as Prisma.InputJsonValue,
+      },
+    });
+
+    return { success: true, message: "Shipping address updated successfully" };
+  } catch (error) {
     return { success: false, message: formatError(error) };
   }
 }

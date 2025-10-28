@@ -22,9 +22,9 @@
 21. openssl rand -base64 32
 22. npx shadcn@latest add label input
 23. npx shadcn@latest add toast
-24.
-25.
-26.
+24. npx shadcn@latest add table
+25. npm i react-hook-form @hookform/resolvers
+26. npx shadcn@latest add form
 27.
 28.
 29.

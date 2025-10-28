@@ -220,8 +220,8 @@ export async function addItemToCart(data: CartItem): Promise<ActionResult> {
 
 export async function getMyCart() {
   try {
-    const cookieStore = await cookies();                       // ← change
-    const sessionCartId = cookieStore.get("sessionCartId")?.value; 
+    const cookieStore = await cookies();
+    const sessionCartId = cookieStore.get("sessionCartId")?.value;
 
     if (!sessionCartId) {
       console.warn("⚠️ getMyCart: No session cart ID found.");
@@ -238,18 +238,27 @@ export async function getMyCart() {
     if (!cart) return undefined;
 
     return convertToPlainObject({
-      ...cart,
+      id: cart.id,
+      createdAt: cart.createdAt,
+      // keep items as an array
       items: (Array.isArray(cart.items) ? cart.items : []) as CartItem[],
-      itemsPrice: cart.itemsPrice.toString(),
-      shippingPrice: cart.shippingPrice.toString(),
-      taxPrice: cart.taxPrice.toString(),
-      totalPrice: cart.totalPrice.toString(),
+
+      // 👇 convert Decimal/string → number so it matches your Cart type
+      itemsPrice: Number(cart.itemsPrice),
+      shippingPrice: Number(cart.shippingPrice),
+      taxPrice: Number(cart.taxPrice),
+      totalPrice: Number(cart.totalPrice),
+
+      // 👇 ensure non-null strings as your prop type expects
+      sessionCartId: cart.sessionCartId ?? "",
+      userId: cart.userId ?? undefined,
     });
   } catch (error) {
     console.error("getMyCart error:", error);
     return undefined;
   }
 }
+
 
 export async function removeItemFromCart(productId: string) {
 try{
