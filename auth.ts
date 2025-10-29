@@ -81,6 +81,7 @@ import { prisma } from "@/db/prisma";
 import { compare } from "bcrypt-ts-edge";
 // import {cookies} from 'next/headers';
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 function deriveRoleFromEmail(email: string): string {
   const local = email.split("@")[0]?.trim().toLowerCase();
@@ -138,8 +139,9 @@ export const authConfig: NextAuthConfig = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user,trigger }) {
       if (user) {
+        token.id=user.id;
         token.role = (user as { role?: string }).role ?? token.role ?? "user";
         if (process.env.NODE_ENV !== "production") {
           console.log("🟣 [jwt] after sign-in:", token);
@@ -159,6 +161,34 @@ export const authConfig: NextAuthConfig = {
             /* ignore */
           }
         }
+
+        if(trigger==='signIn' || trigger === 'signUp'){
+          const cookiesObject=await cookies();
+          const sessionCartId=cookiesObject.get('sessionCartId')?.value;
+
+          if(sessionCartId ){
+            const sessionCart = await prisma.cart.findFirst({
+              where:{
+                sessionCartId
+              }
+            });
+            if(sessionCart){
+              // Delete any existing cart for the user
+              await prisma.cart.deleteMany({
+                where:{
+                  userId: user.id
+                },
+                
+              });
+
+              // Assigne New Cart
+              await prisma.cart.update({
+                 where:{id: sessionCart.id},
+                 data:{userId: user.id}
+              })
+            }
+          }
+        }
       }
 
       // fallback if role missing
@@ -170,6 +200,22 @@ export const authConfig: NextAuthConfig = {
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     authorized({ request, auth }:any) {
+      //Array of regex pattersn to exclude from auth check
+      const protectedPatterns = [
+        /\/shipping-address/,
+        /\/payment-method/, 
+        /\/place-order/, 
+        /\/profile/,
+        /\/order\/(.*)/,
+        /\/admin/,
+        /\/user\/(.*)/
+      ];
+
+      const { pathname } = request.nextUrl;
+      if(!auth && protectedPatterns.some(p => p.test(pathname))) return false;
+
+
+
       // check for session cart cookie
       if (!request.cookies.get('sessionCartId')) {
         // Generate a new cart ID and set it as a cookie
@@ -196,7 +242,7 @@ export const authConfig: NextAuthConfig = {
         session.user.name = token.name ?? session.user.name ?? null;
       }
       if (process.env.NODE_ENV !== "production") {
-        console.log("🟡 [session] session.user.role:", session.user.role);
+        // console.log("🟡 [session] session.user.role:", session.user.role);
       }
       return session;
     },

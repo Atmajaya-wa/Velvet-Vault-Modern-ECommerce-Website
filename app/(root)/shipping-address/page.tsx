@@ -5,6 +5,9 @@ import {redirect} from 'next/navigation';
 import {ShippingAddress} from '@/types';
 import { getUserById } from '@/lib/actions/user.actions';
 import ShippingAddressForm from './shipping-address-form';
+import CheckoutSteps from '@/components/shared/checkout-steps';
+
+
 
 
 export const metadata: Metadata = {
@@ -30,7 +33,11 @@ const ShippingAddressPage = async () => {
 
       // 👉 আমরা single JSON object ধরে নিচ্ছি:
   const address = (user.addresses ?? null) as unknown as ShippingAddress | null;
-  return <ShippingAddressForm address={address ?? undefined} />;
+  return <>
+  <CheckoutSteps current={1}/>
+  <ShippingAddressForm address={address ?? undefined} />;
+  </>
+  
 }
 
 export default ShippingAddressPage;
