@@ -25,7 +25,7 @@
 24. npx shadcn@latest add table
 25. npm i react-hook-form @hookform/resolvers
 26. npx shadcn@latest add form
-27.
+27. npx shadcn@latest add radio-group
 28.
 29.
 30.

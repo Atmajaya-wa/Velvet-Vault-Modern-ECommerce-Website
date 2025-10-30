@@ -23,6 +23,7 @@
 
 // lib/validators.ts
 import { z } from "zod";
+import { PAYMENT_METHODS } from "./constants";
 
 /** Shared */
 const email = z.string().email("Enter a valid email address");
@@ -99,3 +100,33 @@ export const shippingAddressSchema = z.object({
   lng: z.number().optional(),
 });
 
+// Schema for payment method
+export const paymentMethodSchema = z.object({
+  type: z.string().min(2, 'Payment method is required')
+}).refine((data) => PAYMENT_METHODS.includes(data.type), {
+  path: ['type'],
+  message: 'Invalid payment method',
+});
+
+// Schema for inserting an order
+export const insertOrderSchema = z.object({
+  userId: z.string().min(1, 'User ID is required'),
+  shippingAddress: shippingAddressSchema,
+  paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
+    message: 'Invalid payment method',
+  }),
+  itemsPrice: money,
+  shippingPrice: money,
+  taxPrice: money,
+  totalPrice: money,
+});
+
+// Schema for inserting order item
+export const insertOrderItemSchema = z.object({
+  productId: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  image: z.string(),
+  price: money,
+  qty: z.number()
+})
